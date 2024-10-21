@@ -28,7 +28,7 @@ const MovieCast = () => {
       }
     };
     fetchMovieCast();
-  }, []);
+  }, [movieId]);
 
   useEffect(() => {
     if (!movieId) return;

@@ -26,7 +26,7 @@ const MovieReviews = () => {
       }
     };
     fetchReviews();
-  }, []);
+  }, [movieId]);
 
   useEffect(() => {
     if (!movieId) return;

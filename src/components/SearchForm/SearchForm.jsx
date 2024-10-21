@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import styles from "./SearchForm.module.css";
 
 const SearchForm = ({ onSearch }) => {
@@ -6,8 +7,7 @@ const SearchForm = ({ onSearch }) => {
     const form = evt.target;
     const value = form.elements.text.value.trim();
     if (value === "") {
-      alert("This is an invalid request. Try again!");
-      return;
+      return toast("This is an invalid request. Try again!");
     } else {
       onSearch(value);
     }
