@@ -1,4 +1,4 @@
-import { useState } from "react";
+import styles from "./SearchForm.module.css";
 
 const SearchForm = ({ onSearch }) => {
   const handleSubmit = (evt) => {
@@ -6,21 +6,25 @@ const SearchForm = ({ onSearch }) => {
     const form = evt.target;
     const value = form.elements.text.value.trim();
     if (value === "") {
-      return "This is an invalid request. Try again!";
+      alert("This is an invalid request. Try again!");
+      return;
     } else {
       onSearch(value);
     }
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.formWrapper}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <input
+          className={styles.input}
           type="text"
           name="text"
           autoComplete="off"
           placeholder="Search movies"
         />
-        <button type="submit">Search</button>
+        <button type="submit" className={styles.button}>
+          Search
+        </button>
       </form>
     </div>
   );

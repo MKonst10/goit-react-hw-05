@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import styles from "./MovieCast.module.css";
 
 const MovieCast = () => {
   const { movieId } = useParams();
@@ -21,7 +22,6 @@ const MovieCast = () => {
       };
       try {
         const { data } = await axios.get(url, options);
-        console.log(data.cast);
         setCast(data.cast);
       } catch (error) {
         setError(error.message);
@@ -40,9 +40,9 @@ const MovieCast = () => {
         <p>Loading...</p>
       ) : (
         cast.length > 0 && (
-          <ul>
+          <ul className={styles.cast}>
             {cast?.map((actor) => (
-              <li key={actor.id}>
+              <li className={styles.actor} key={actor.id}>
                 <img
                   src={
                     actor.profile_path
@@ -52,8 +52,10 @@ const MovieCast = () => {
                   width={150}
                   alt={actor.name}
                 />
-                <p>{actor.name}</p>
-                <p>Character: {actor.character}</p>
+                <div className={styles.actorInfo}>
+                  <p>{actor.name}</p>
+                  <p>Character: {actor.character}</p>
+                </div>
               </li>
             ))}
           </ul>

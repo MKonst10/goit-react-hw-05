@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import styles from "./MovieList.module.css";
 
-const MovieList = ({ homePage, data, searchValue, location }) => {
+const MovieList = ({ homePage, data, location }) => {
   const [movies, setMovies] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -36,10 +36,14 @@ const MovieList = ({ homePage, data, searchValue, location }) => {
             <p>Loading...</p>
           ) : (
             movies.length > 0 && (
-              <ul>
+              <ul className={styles.list}>
                 {movies?.map((movie) => (
                   <li key={movie.id}>
-                    <Link state={{ from: location }} to={`/movies/${movie.id}`}>
+                    <Link
+                      className={styles.item}
+                      state={{ from: location }}
+                      to={`/movies/${movie.id}`}
+                    >
                       {movie.title}
                     </Link>
                   </li>
@@ -50,10 +54,14 @@ const MovieList = ({ homePage, data, searchValue, location }) => {
         </div>
       )}
       {data && (
-        <ul>
+        <ul className={styles.list}>
           {data.map((movie) => (
             <li key={movie.id}>
-              <Link state={{ from: location }} to={`/movies/${movie.id}`}>
+              <Link
+                className={styles.item}
+                state={{ from: location }}
+                to={`/movies/${movie.id}`}
+              >
                 {movie.title}
               </Link>
             </li>

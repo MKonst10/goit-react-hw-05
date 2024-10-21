@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import MovieList from "../components/MovieList/MovieList";
-import SearchForm from "../components/SearchForm/SearchForm";
+import MovieList from "../../components/MovieList/MovieList";
+import SearchForm from "../../components/SearchForm/SearchForm";
 import axios from "axios";
 import { useLocation, useSearchParams } from "react-router-dom";
 
 const MoviesPage = () => {
-  //   const [search, setSearch] = useState("");
   const [movies, setMovies] = useState(null);
   const [error, setError] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,8 +12,6 @@ const MoviesPage = () => {
   const location = useLocation();
 
   const handleSubmit = (value) => {
-    // setSearch(value);
-    console.log(searchValue);
     setSearchParams({ query: value });
   };
 
@@ -37,7 +34,7 @@ const MoviesPage = () => {
 
         if (data.results.length === 0) {
           alert(
-            "Sorry, there are no images matching your search query. Please try again!"
+            "Sorry, there are no movies matching your search query. Please try again!"
           );
         }
       } catch (error) {
@@ -53,7 +50,7 @@ const MoviesPage = () => {
   return (
     <div>
       <SearchForm onSearch={handleSubmit} />
-      <MovieList data={movies} searchValue={searchValue} location={location} />
+      <MovieList data={movies} location={location} />
     </div>
   );
 };

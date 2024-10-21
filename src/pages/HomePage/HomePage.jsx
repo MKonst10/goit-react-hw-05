@@ -1,4 +1,4 @@
-import MovieList from "../components/MovieList/MovieList";
+import MovieList from "../../components/MovieList/MovieList";
 
 const HomePage = () => {
   const homePage = true;

@@ -1,0 +1,13 @@
+.item {
+  transition: color 250ms;
+}
+
+.item:hover {
+  color: rgb(255, 99, 99);
+}
+
+.list {
+  gap: 5px;
+  display: flex;
+  flex-direction: column;
+}
