@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 
-const MovieList = () => {
+const MovieList = ({ homePage, data, searchValue, location }) => {
   const [movies, setMovies] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [searchValue, setSearchValue] = useState(null);
 
   useEffect(() => {
     const fetchTrendingMovies = async () => {
@@ -29,14 +29,37 @@ const MovieList = () => {
 
   return (
     <div>
-      <h2>Trending today</h2>
-      <ul>
-        {movies?.map((movie) => (
-          <li key={movie.id}>
-            <button>{movie.title}</button>
-          </li>
-        ))}
-      </ul>
+      {homePage && (
+        <div>
+          <h2>Trending today</h2>
+          {movies === null ? (
+            <p>Loading...</p>
+          ) : (
+            movies.length > 0 && (
+              <ul>
+                {movies?.map((movie) => (
+                  <li key={movie.id}>
+                    <Link state={{ from: location }} to={`/movies/${movie.id}`}>
+                      {movie.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )
+          )}
+        </div>
+      )}
+      {data && (
+        <ul>
+          {data.map((movie) => (
+            <li key={movie.id}>
+              <Link state={{ from: location }} to={`/movies/${movie.id}`}>
+                {movie.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

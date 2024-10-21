@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 const Navigation = () => {
   return (
-    <nav>
+    <header>
       <NavLink
         to="/"
         className={({ isActive }) =>
@@ -18,10 +18,11 @@ const Navigation = () => {
         className={({ isActive }) =>
           clsx(styles.link, isActive && styles.active)
         }
+        end
       >
         Movies
       </NavLink>
-    </nav>
+    </header>
   );
 };
 

@@ -1,9 +1,10 @@
 import MovieList from "../components/MovieList/MovieList";
 
 const HomePage = () => {
+  const homePage = true;
   return (
     <div>
-      <MovieList />
+      <MovieList homePage={homePage} />
     </div>
   );
 };
