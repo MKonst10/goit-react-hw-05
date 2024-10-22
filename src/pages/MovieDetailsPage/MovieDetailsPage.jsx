@@ -6,21 +6,23 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState, useRef } from "react";
 import styles from "./MovieDetailsPage.module.css";
+import Loader from "../../components/Loader/Loader";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
+  const [loader, setLoader] = useState(false);
   const defaultImg =
     "https://dl-media.viber.com/10/share/2/long/vibes/icon/image/0x0/95e0/5688fdffb84ff8bed4240bcf3ec5ac81ce591d9fa9558a3a968c630eaba195e0.jpg";
   const navigate = useNavigate();
   const location = useLocation();
 
-  const backUrl = location.state?.from || "/movies";
+  const backUrlRef = useRef(location.state?.from || "/movies");
   const goBack = () => {
-    navigate(backUrl);
+    navigate(backUrlRef.current);
   };
 
   useEffect(() => {
@@ -34,17 +36,21 @@ const MovieDetailsPage = () => {
         },
       };
       try {
+        setLoader(true);
         const { data } = await axios.get(url, options);
         setMovie(data);
       } catch (error) {
         setError(error.message);
+      } finally {
+        setLoader(false);
       }
     };
     fetchMovie();
-  }, []);
+  }, [movieId]);
 
   return (
     <div>
+      {loader && <Loader />}
       {movie !== null && (
         <div>
           <div className={styles.movie}>
