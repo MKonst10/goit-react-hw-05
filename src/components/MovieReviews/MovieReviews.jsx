@@ -2,11 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./MovieReviews.module.css";
+import Loader from "../Loader/Loader";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState(null);
   const [error, setError] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -19,10 +21,13 @@ const MovieReviews = () => {
         },
       };
       try {
+        setLoader(true);
         const { data } = await axios.get(url, options);
         setReviews(data.results);
       } catch (error) {
         setError(error.message);
+      } finally {
+        setLoader(false);
       }
     };
     fetchReviews();
@@ -35,7 +40,7 @@ const MovieReviews = () => {
   return (
     <div>
       {reviews === null ? (
-        <p>Loading...</p>
+        loader && <Loader />
       ) : reviews.length > 0 ? (
         <ul className={styles.list}>
           {reviews.map((review) => (
