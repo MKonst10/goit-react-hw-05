@@ -6,6 +6,7 @@ const HomePage = () => {
   const homePage = true;
   const [movies, setMovies] = useState(null);
   const [error, setError] = useState(null);
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     const fetchTrendingMovies = async () => {
@@ -18,10 +19,13 @@ const HomePage = () => {
         },
       };
       try {
+        setLoader(true);
         const { data } = await axios.get(url, options);
         setMovies(data.results);
       } catch (error) {
         setError(error.message);
+      } finally {
+        setLoader(false);
       }
     };
     fetchTrendingMovies();
@@ -29,7 +33,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <MovieList homePage={homePage} movies={movies} />
+      <MovieList homePage={homePage} movies={movies} loader={loader} />
     </div>
   );
 };
